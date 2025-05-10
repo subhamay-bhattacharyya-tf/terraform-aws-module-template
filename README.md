@@ -1,92 +1,113 @@
-# Terraform AWS Module Template Repository
+# terraform-docs
 
-![Commit Activity](https://img.shields.io/github/commit-activity/t/subhamay-bhattacharyya-tf/terraform-aws-module-template)&nbsp;![Last Commit](https://img.shields.io/github/last-commit/subhamay-bhattacharyya-tf/terraform-aws-module-template)&nbsp;![Release Date](https://img.shields.io/github/release-date/subhamay-bhattacharyya-tf/terraform-aws-module-template)&nbsp;![Repo Size](https://img.shields.io/github/repo-size/subhamay-bhattacharyya-tf/terraform-aws-module-template)&nbsp;![File Count](https://img.shields.io/github/directory-file-count/subhamay-bhattacharyya-tf/terraform-aws-module-template)&nbsp;![Issues](https://img.shields.io/github/issues/subhamay-bhattacharyya-tf/terraform-aws-module-template)&nbsp;![Top Language](https://img.shields.io/github/languages/top/subhamay-bhattacharyya-tf/terraform-aws-module-template)&nbsp;![Custom Endpoint](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bsubhamay/f0fdfc35f6b51daa3b0ea2cd1b0dec23/raw/terraform-aws-module-template.json?)
+[![Build Status](https://github.com/terraform-docs/terraform-docs/workflows/ci/badge.svg)](https://github.com/terraform-docs/terraform-docs/actions) [![GoDoc](https://pkg.go.dev/badge/github.com/terraform-docs/terraform-docs)](https://pkg.go.dev/github.com/terraform-docs/terraform-docs) [![Go Report Card](https://goreportcard.com/badge/github.com/terraform-docs/terraform-docs)](https://goreportcard.com/report/github.com/terraform-docs/terraform-docs) [![Codecov Report](https://codecov.io/gh/terraform-docs/terraform-docs/branch/master/graph/badge.svg)](https://codecov.io/gh/terraform-docs/terraform-docs) [![License](https://img.shields.io/github/license/terraform-docs/terraform-docs)](https://github.com/terraform-docs/terraform-docs/blob/master/LICENSE) [![Latest release](https://img.shields.io/github/v/release/terraform-docs/terraform-docs)](https://github.com/terraform-docs/terraform-docs/releases)
 
-# terraform-aws-s3-bucket
+![terraform-docs-teaser](./images/terraform-docs-teaser.png)
 
-## 🚀 Terraform Module to Create AWS S3 Buckets
+## What is terraform-docs
 
-This module creates and manages AWS S3 buckets with configurable settings such as versioning, encryption, lifecycle policies, access logging, public access blocking, and more. It supports loading configuration from a JSON file and includes input validation for enhanced reliability.
+A utility to generate documentation from Terraform modules in various output formats.
 
----
+## Documentation
 
-## 📦 Features
+- **Users**
+  - Read the [User Guide] to learn how to use terraform-docs
+  - Read the [Formats Guide] to learn about different output formats of terraform-docs
+  - Refer to [Config File Reference] for all the available configuration options
+- **Developers**
+  - Read [Contributing Guide] before submitting a pull request
 
-- Create S3 bucket with customizable name and tags  
-- Enable server-side encryption (SSE-S3, SSE-KMS)  
-- Enable bucket versioning  
-- Configure lifecycle rules (transitions, expiration)  
-- Enable access logging  
-- Block public access settings  
-- Policy attachment (optional)  
-- JSON-driven configuration support  
-- Pre-commit hooks for code quality  
+Visit [our website] for all documentation.
 
----
+## Installation
 
-## 🛠 Usage
+The latest version can be installed using `go get`:
 
-```hcl
-module "s3_bucket" {
-  source = "github.com/<your-org>/terraform-aws-s3-bucket"
-
-  s3_config_path = "${path.module}/s3_configuration.json"
-}
+```bash
+GO111MODULE="on" go get github.com/terraform-docs/terraform-docs@v0.12.0
 ```
 
-### Sample `s3_configuration.json`
+**NOTE:** to download any version **before** `v0.9.1` (inclusive) you need to use to
+old module namespace (`segmentio`):
 
-```json
-{
-  "bucket-base-name": "my-app-data",
-  "tags": {
-    "Project": "myapp",
-    "Environment": "devl"
-  },
-  "encryption": {
-    "enabled": true,
-    "type": "SSE-KMS",
-    "key_arn": "arn:aws:kms:us-east-1:123456789012:key/abcd..."
-  },
-  "versioning": true,
-  "lifecycle_rules": [
-    {
-      "id": "log-cleanup",
-      "enabled": true,
-      "prefix": "logs/",
-      "transition": [
-        {
-          "days": 30,
-          "storage_class": "STANDARD_IA"
-        }
-      ],
-      "expiration": {
-        "days": 365
-      }
-    }
-  ]
-}
+```bash
+# only for v0.9.1 and before
+GO111MODULE="on" go get github.com/segmentio/terraform-docs@v0.9.1
 ```
 
----
+**NOTE:** please use the latest go to do this, we use 1.16.0 but ideally go 1.15 or greater.
 
-<!-- BEGIN_TF_DOCS -->
+This will put `terraform-docs` in `$(go env GOPATH)/bin`. If you encounter the error
+`terraform-docs: command not found` after installation then you may need to either add
+that directory to your `$PATH` as shown [here] or do a manual installation by cloning
+the repo and run `make build` from the repository which will put `terraform-docs` in:
 
-<!-- END_TF_DOCS -->
+```bash
+$(go env GOPATH)/src/github.com/terraform-docs/terraform-docs/bin/$(uname | tr '[:upper:]' '[:lower:]')-amd64/terraform-docs
+```
 
-## Authors
+Stable binaries are also available on the [releases] page. To install, download the
+binary for your platform from "Assets" and place this into your `$PATH`:
 
-Module is maintained by [Subhamay Bhattacharyya](https://github.com/subhamay-bhattacharyya)
+```bash
+curl -Lo ./terraform-docs.tar.gz https://github.com/terraform-docs/terraform-docs/releases/download/v0.12.0/terraform-docs-v0.12.0-$(uname)-amd64.tar.gz
+tar -xzf terraform-docs.tar.gz
+chmod +x terraform-docs
+mv terraform-docs /some-dir-in-your-PATH/terraform-docs
+```
 
-### 🤝 Contributing
-Contributions are welcome! Please follow standard GitHub PR practices:
+**NOTE:** Windows releases are in `ZIP` format.
 
-1. Fork the repo
-2. Create a feature branch
-3. Commit changes
-4. Open a Pull Request
-5. Please include tests and documentation for any new features.
+If you are a Mac OS X user, you can use [Homebrew]:
+
+```bash
+brew install terraform-docs
+```
+
+or
+
+```bash
+brew install terraform-docs/tap/terraform-docs
+```
+
+Windows users can install using [Scoop]:
+
+```bash
+scoop bucket add terraform-docs https://github.com/terraform-docs/scoop-bucket
+scoop install terraform-docs
+```
+
+or [Chocolatey]:
+
+```bash
+choco install terraform-docs
+```
+
+Alternatively you also can run `terraform-docs` as a container:
+
+```bash
+docker run quay.io/terraform-docs/terraform-docs:0.12.0
+```
+
+**NOTE:** Docker tag `latest` refers to _latest_ stable released version and `edge`
+refers to HEAD of `master` at any given point in time.
+
+## Community
+
+- Discuss terraform-docs on [Slack]
 
 ## License
 
-MIT
+MIT License - Copyright (c) 2021 The terraform-docs Authors.
+
+[User Guide]: ./docs/user-guide/introduction.md
+[Formats Guide]: ./docs/reference/terraform-docs.md
+[Config File Reference]: ./docs/user-guide/configuration.md
+[Contributing Guide]: CONTRIBUTING.md
+[our website]: https://terraform-docs.io/
+[here]: https://golang.org/doc/code.html#GOPATH
+[releases]: https://github.com/terraform-docs/terraform-docs/releases
+[Homebrew]: https://brew.sh
+[Scoop]: https://scoop.sh/
+[Chocolatey]: https://www.chocolatey.org
+[Slack]: https://slack.terraform-docs.io/
