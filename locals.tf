@@ -1,11 +1,6 @@
-# s3_bucket_validation.tf
-
-# --- Load AWS region
-data "aws_region" "current" {}
-
 # --- Parse config file
 locals {
-  s3_config         = jsondecode(file("${path.module}/s3_configuration.json"))
+  s3_config         = jsondecode(file("${path.module}/${var.config_json_file}"))
   project_name      = try(local.s3_config["tags"]["Project"], null)
   environment_name  = try(local.s3_config["tags"]["Environment"], null)
   tags              = try(local.s3_config["tags"], {})

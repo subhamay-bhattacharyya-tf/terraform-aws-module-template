@@ -61,6 +61,7 @@ sudo mv terrascan /usr/local/bin/
 echo "🔧 Installing TFLint..."
 curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
 sudo mv tflint /usr/local/bin/
+tflint --version
 
 echo "🔧 Installing TFSec..."
 curl -sLo tfsec https://github.com/aquasecurity/tfsec/releases/latest/download/tfsec-$(uname)-amd64
