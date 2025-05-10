@@ -14,6 +14,21 @@ sudo apt-get install -y \
     lsb-release \
     tar
 
+
+# Install Python and pip (if not already installed)
+echo "🔧 Installing Python.."
+sudo apt-get install -y python3 python3-pip
+
+# Install pre-commit
+echo "🔧 Installing pre-commit..."
+pip3 install --upgrade pip
+pip3 install pre-commit
+
+# Optionally verify installation
+echo "Verifying pre-commit installation..."
+pre-commit --version
+
+
 echo "🔧 Installing Terraform..."
 curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
