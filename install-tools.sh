@@ -25,8 +25,12 @@ pip3 install --upgrade pip
 pip3 install pre-commit
 
 # Optionally verify installation
-echo "Verifying pre-commit installation..."
+echo "🔧 Verifying pre-commit installation..."
 pre-commit --version
+
+# Install the Git hook scripts
+echo "🔧 Install git hook scripts."
+pre-commit install
 
 
 echo "🔧 Installing Terraform..."
