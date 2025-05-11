@@ -6,7 +6,15 @@
   "postCreateCommand": "./install-tools.sh",
   "customizations": {
     "vscode": {
-      "extensions": ["hashicorp.terraform", "ms-azuretools.vscode-docker"],
+      "extensions": [
+        "hashicorp.terraform",
+        "ms-azuretools.vscode-docker",
+        "GitHub.copilot",
+        "ms-python.python",
+        "mechatroner.rainbow-csv",
+        "vscode.json-language-features",
+        "ms-vscode.vscode-node-azure-pack"
+      ],
       "settings": {
         "terminal.integrated.defaultProfile.linux": "bash"
       }
