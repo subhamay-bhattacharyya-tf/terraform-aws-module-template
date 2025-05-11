@@ -71,7 +71,63 @@ module "s3_bucket" {
 ---
 
 <!-- BEGIN_TF_DOCS -->
-<!-- This section is auto-generated -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.0 |
+| <a name="requirement_null"></a> [null](#requirement\_null) | ~> 3.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 5.0 |
+| <a name="provider_null"></a> [null](#provider\_null) | ~> 3.0 |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_s3_bucket.s3_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
+| [aws_s3_bucket_intelligent_tiering_configuration.intelligent_tiering_configuration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_intelligent_tiering_configuration) | resource |
+| [aws_s3_bucket_lifecycle_configuration.s3_bucket_lifecycle](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_lifecycle_configuration) | resource |
+| [aws_s3_bucket_logging.s3_bucket_logging](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_logging) | resource |
+| [aws_s3_bucket_server_side_encryption_configuration.s3_bucket_sse_configuration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_server_side_encryption_configuration) | resource |
+| [aws_s3_bucket_versioning.s3_bucket_versioning](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_versioning) | resource |
+| [null_resource.validate_access_logging](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
+| [null_resource.validate_bucket_name](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
+| [null_resource.validate_bucket_versioning](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
+| [null_resource.validate_encryption_config](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
+| [null_resource.validate_environment_name](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
+| [null_resource.validate_intelligent_tiering](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
+| [null_resource.validate_lifecycle_rules](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
+| [null_resource.validate_project_name](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
+| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_config_json_file"></a> [config\_json\_file](#input\_config\_json\_file) | Path to the JSON configuration file for S3 bucket creation. | `string` | `"s3-configuration.json"` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_s3_bucket_encryption_configuration"></a> [s3\_bucket\_encryption\_configuration](#output\_s3\_bucket\_encryption\_configuration) | The encryption configuration of the S3 bucket. |
+| <a name="output_s3_bucket_intelligent_tiering_configuration"></a> [s3\_bucket\_intelligent\_tiering\_configuration](#output\_s3\_bucket\_intelligent\_tiering\_configuration) | The intelligent tiering configuration of the S3 bucket. |
+| <a name="output_s3_bucket_logging_configuration"></a> [s3\_bucket\_logging\_configuration](#output\_s3\_bucket\_logging\_configuration) | The logging configuration of the S3 bucket. |
+| <a name="output_s3_bucket_logging_id"></a> [s3\_bucket\_logging\_id](#output\_s3\_bucket\_logging\_id) | The ID of the logging configuration. |
+| <a name="output_s3_bucket_logging_target_bucket"></a> [s3\_bucket\_logging\_target\_bucket](#output\_s3\_bucket\_logging\_target\_bucket) | The target bucket for logging. |
+| <a name="output_s3_bucket_logging_target_prefix"></a> [s3\_bucket\_logging\_target\_prefix](#output\_s3\_bucket\_logging\_target\_prefix) | The target prefix for logging. |
+| <a name="output_s3_bucket_name"></a> [s3\_bucket\_name](#output\_s3\_bucket\_name) | The name of the S3 bucket created. |
+| <a name="output_s3_bucket_versioning"></a> [s3\_bucket\_versioning](#output\_s3\_bucket\_versioning) | The versioning configuration of the S3 bucket. |
 <!-- END_TF_DOCS -->
 
 ## Authors
