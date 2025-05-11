@@ -1,6 +1,9 @@
 # Local .terraform directories
 .terraform/
 
+# Terraform lock files
+.terraform.lock.hcl
+
 # .tfstate files
 *.tfstate
 *.tfstate.*
@@ -35,3 +38,7 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+
+# Ignore installation logs
+install-tools.log
