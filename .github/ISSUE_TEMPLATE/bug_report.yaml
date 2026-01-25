@@ -1,0 +1,27 @@
+name: Bug report
+description: Report a bug or unexpected behavior
+title: "bug: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the issue and what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction steps
+      description: Provide minimal Terraform config / steps to reproduce.
+    validations:
+      required: true
+  - type: textarea
+    id: versions
+    attributes:
+      label: Versions
+      description: Terraform and provider versions.
+    validations:
+      required: true
+

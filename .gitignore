@@ -1,0 +1,19 @@
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform lock is recommended to commit
+.terraform.lock.hcl
+
+# OS/editor
+.DS_Store
+.idea/
+.vscode/
+init-terraform-module-repo.sh
+
