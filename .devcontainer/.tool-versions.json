@@ -1,0 +1,11 @@
+{
+  "terraform": "1.14.3",
+  "awscli": "latest",
+  "tflint": "0.50.3",
+  "tfsec": "1.28.5",
+  "terraform-docs": "0.18.0",
+  "pre-commit": "latest",
+  "checkov": "latest",
+  "nodejs": "22",
+  "go": "1.21.0"
+}

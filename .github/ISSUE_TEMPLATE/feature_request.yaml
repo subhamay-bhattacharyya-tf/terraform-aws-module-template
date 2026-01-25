@@ -1,0 +1,20 @@
+name: Feature request
+description: Suggest an enhancement
+title: "feat: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: What do you want to add/change?
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Why is this useful? Any examples?
+    validations:
+      required: false
+

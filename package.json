@@ -1,0 +1,43 @@
+{
+  "name": "terraform-aws-module-template",
+  "version": "0.0.0",
+  "description": "A reusable Terraform module for AWS with semantic release.",
+  "main": "index.js",
+  "scripts": {
+    "release": "semantic-release"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^12.0.2",
+    "@semantic-release/release-notes-generator": "^14.0.3",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "semantic-release": "^25.0.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "release": {
+    "extends": "./scripts/plugins/release.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/subhamay-bhattacharyya/terraform-aws-module-template.git"
+  },
+  "author": "Subhamay Bhattacharyya",
+  "license": "MIT",
+  "keywords": [
+    "terraform",
+    "aws",
+    "module",
+    "infrastructure"
+  ],
+  "bugs": {
+    "url": "https://github.com/subhamay-bhattacharyya/terraform-aws-module-template/issues"
+  },
+  "homepage": "https://github.com/subhamay-bhattacharyya/terraform-aws-module-template#readme"
+}
