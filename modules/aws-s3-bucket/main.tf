@@ -15,11 +15,23 @@ resource "aws_s3_bucket" "this" {
   }
 }
 
+# Check current versioning status
+data "aws_s3_bucket_versioning" "this" {
+  bucket = aws_s3_bucket.this.id
+}
+
+locals {
+  # If versioning was ever enabled, use Suspended instead of Disabled
+  versioning_status = var.s3_config.versioning ? "Enabled" : (
+    data.aws_s3_bucket_versioning.this.status == "Enabled" ? "Suspended" : "Disabled"
+  )
+}
+
 resource "aws_s3_bucket_versioning" "this" {
   bucket = aws_s3_bucket.this.id
 
   versioning_configuration {
-    status = var.s3_config.versioning ? "Enabled" : "Disabled"
+    status = local.versioning_status
   }
 }
 
