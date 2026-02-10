@@ -9,7 +9,7 @@ variable "s3" {
   type = object({
     bucket_name   = string
     bucket_keys   = optional(list(string), [])
-    versioning    = optional(bool, false)
+    versioning    = optional(bool, true)
     sse_algorithm = optional(string, null)
     kms_key_alias = optional(string, null)
   })

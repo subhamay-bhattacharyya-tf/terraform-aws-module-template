@@ -8,7 +8,7 @@ variable "s3" {
   description = "S3 bucket configuration"
   type = object({
     bucket_name   = string
-    bucket_keys   = optional(list(string), [])
+    bucket_keys   = list(string)
     versioning    = optional(bool, false)
     sse_algorithm = optional(string, null)
     kms_key_alias = optional(string, null)

@@ -1,10 +1,10 @@
-# Example: Single Snowflake Warehouse
+# Example: S3 Bucket with KMS encryption and versioning
 #
-# This example demonstrates how to use the snowflake-warehouse module
-# to create a single Snowflake warehouse.
+# This example demonstrates how to use the aws-s3-bucket module
+# to create an S3 bucket with optional KMS encryption, versioning, and folders.
 
-module "warehouse" {
-  source = "../../modules/snowflake-warehouse"
+module "s3_bucket" {
+  source = "../../modules/aws-s3-bucket"
 
-  warehouse_configs = var.warehouse_configs
+  s3_config = var.s3
 }

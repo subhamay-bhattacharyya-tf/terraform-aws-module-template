@@ -1,42 +1,51 @@
-# Basic Example - Single Warehouse
+# S3 Bucket - Basic Example
 
-This example demonstrates how to create a single Snowflake warehouse using the module.
+Creates an S3 bucket with optional KMS encryption, versioning, and folder structure.
 
 ## Usage
 
-```hcl
-module "warehouse" {
-  source = "../../modules/snowflake-warehouse"
+```bash
+# Initialize
+terraform init
 
-  warehouse_configs = {
-    "my_warehouse" = {
-      name                      = "MY_WAREHOUSE"
-      warehouse_size            = "X-SMALL"
-      warehouse_type            = "STANDARD"
-      auto_resume               = true
-      auto_suspend              = 60
-      initially_suspended       = true
-      min_cluster_count         = 1
-      max_cluster_count         = 1
-      scaling_policy            = "STANDARD"
-      enable_query_acceleration = false
-      comment                   = "My test warehouse"
-    }
-  }
-}
+# Plan
+terraform plan -var='s3={"bucket_name":"my-bucket","bucket_keys":["raw-data/csv","raw-data/json"],"versioning":true}'
+
+# Apply
+terraform apply -var='s3={"bucket_name":"my-bucket","bucket_keys":["raw-data/csv","raw-data/json"],"versioning":true}'
+
+# With KMS encryption
+terraform apply -var='s3={"bucket_name":"my-bucket","bucket_keys":["data"],"versioning":true,"kms_key_alias":"my-kms-key"}'
 ```
 
 ## Inputs
 
-| Name | Description | Type | Required |
-|------|-------------|------|----------|
-| warehouse_configs | Map of warehouse configuration objects | map(object) | yes |
+| Name | Description | Type | Default |
+|------|-------------|------|---------|
+| region | AWS region | string | us-east-1 |
+| s3 | S3 bucket configuration object | object | - |
+
+### s3 Object
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| bucket_name | string | - | Name of the S3 bucket (required) |
+| bucket_keys | list(string) | [] | Folder prefixes to create |
+| versioning | bool | false | Enable versioning |
+| kms_key_alias | string | null | KMS key alias for encryption |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| warehouse_names | The names of the created warehouses |
-| warehouse_fully_qualified_names | The fully qualified names of the warehouses |
-| warehouse_sizes | The sizes of the warehouses |
-| warehouse_states | The states of the warehouses |
+| bucket_id | The name of the bucket |
+| bucket_arn | The ARN of the bucket |
+| bucket_domain_name | The bucket domain name |
+| versioning_enabled | Whether versioning is enabled |
+| folder_keys | The folder keys created |
+
+## Requirements
+
+- Terraform >= 1.3.0
+- AWS provider >= 5.0.0
+- KMS key alias must exist if `kms_key_alias` is specified

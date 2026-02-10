@@ -17,8 +17,3 @@ output "versioning_enabled" {
   description = "Whether versioning is enabled"
   value       = module.s3_bucket.versioning_enabled
 }
-
-output "folder_keys" {
-  description = "The folder keys created in the bucket"
-  value       = module.s3_bucket.folder_keys
-}

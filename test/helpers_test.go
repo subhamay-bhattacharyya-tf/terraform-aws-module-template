@@ -2,147 +2,92 @@
 package test
 
 import (
-	"crypto/rsa"
-	"crypto/x509"
-	"database/sql"
-	"encoding/pem"
-	"fmt"
+	"context"
 	"os"
 	"strings"
 	"testing"
 
-	"github.com/snowflakedb/gosnowflake"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/s3"
+	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"github.com/stretchr/testify/require"
 )
 
-type WarehouseProps struct {
-	Name    string
-	Size    string
-	Comment string
+type S3BucketProps struct {
+	Name              string
+	VersioningEnabled bool
+	SSEAlgorithm      string
+	KMSKeyID          string
 }
 
-func openSnowflake(t *testing.T) *sql.DB {
+func getS3Client(t *testing.T) *s3.Client {
 	t.Helper()
 
-	orgName := mustEnv(t, "SNOWFLAKE_ORGANIZATION_NAME")
-	accountName := mustEnv(t, "SNOWFLAKE_ACCOUNT_NAME")
-	user := mustEnv(t, "SNOWFLAKE_USER")
-	privateKeyPEM := mustEnv(t, "SNOWFLAKE_PRIVATE_KEY")
-	role := os.Getenv("SNOWFLAKE_ROLE")
-
-	// Parse the private key
-	block, _ := pem.Decode([]byte(privateKeyPEM))
-	require.NotNil(t, block, "Failed to decode PEM block from private key")
-
-	var privateKey *rsa.PrivateKey
-	var err error
-
-	// Try PKCS8 first, then PKCS1
-	key, err := x509.ParsePKCS8PrivateKey(block.Bytes)
-	if err != nil {
-		privateKey, err = x509.ParsePKCS1PrivateKey(block.Bytes)
-		require.NoError(t, err, "Failed to parse private key")
-	} else {
-		var ok bool
-		privateKey, ok = key.(*rsa.PrivateKey)
-		require.True(t, ok, "Private key is not RSA")
+	region := os.Getenv("AWS_REGION")
+	if region == "" {
+		region = "us-east-1"
 	}
 
-	// Build account identifier: orgname-accountname
-	account := fmt.Sprintf("%s-%s", orgName, accountName)
+	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithRegion(region))
+	require.NoError(t, err, "Failed to load AWS config")
 
-	config := gosnowflake.Config{
-		Account:       account,
-		User:          user,
-		Authenticator: gosnowflake.AuthTypeJwt,
-		PrivateKey:    privateKey,
-	}
-
-	if role != "" {
-		config.Role = role
-	}
-
-	dsn, err := gosnowflake.DSN(&config)
-	require.NoError(t, err, "Failed to build DSN")
-
-	db, err := sql.Open("snowflake", dsn)
-	require.NoError(t, err)
-	require.NoError(t, db.Ping())
-	return db
+	return s3.NewFromConfig(cfg)
 }
 
-func warehouseExists(t *testing.T, db *sql.DB, warehouseName string) bool {
+func bucketExists(t *testing.T, client *s3.Client, bucketName string) bool {
 	t.Helper()
 
-	q := fmt.Sprintf("SHOW WAREHOUSES LIKE '%s';", escapeLike(warehouseName))
-	rows, err := db.Query(q)
-	require.NoError(t, err)
-	defer func() { _ = rows.Close() }()
+	_, err := client.HeadBucket(context.TODO(), &s3.HeadBucketInput{
+		Bucket: &bucketName,
+	})
 
-	return rows.Next()
+	return err == nil
 }
 
-func fetchWarehouseProps(t *testing.T, db *sql.DB, warehouseName string) WarehouseProps {
+func fetchBucketProps(t *testing.T, client *s3.Client, bucketName string) S3BucketProps {
 	t.Helper()
 
-	// SHOW WAREHOUSES returns columns in a specific order. We need to scan all columns
-	// to get name (col 0), size (col 3), and comment (col 10 in newer versions).
-	// Using a simpler approach: query rows and scan by column name using rows.Columns()
-	q := fmt.Sprintf("SHOW WAREHOUSES LIKE '%s';", escapeLike(warehouseName))
-	rows, err := db.Query(q)
-	require.NoError(t, err)
-	defer func() { _ = rows.Close() }()
+	props := S3BucketProps{Name: bucketName}
 
-	cols, err := rows.Columns()
-	require.NoError(t, err)
+	// Check versioning
+	versioningOutput, err := client.GetBucketVersioning(context.TODO(), &s3.GetBucketVersioningInput{
+		Bucket: &bucketName,
+	})
+	require.NoError(t, err, "Failed to get bucket versioning")
+	props.VersioningEnabled = versioningOutput.Status == types.BucketVersioningStatusEnabled
 
-	// Find column indices for name, size, comment
-	nameIdx, sizeIdx, commentIdx := -1, -1, -1
-	for i, col := range cols {
-		switch col {
-		case "name":
-			nameIdx = i
-		case "size":
-			sizeIdx = i
-		case "comment":
-			commentIdx = i
+	// Check encryption
+	encryptionOutput, err := client.GetBucketEncryption(context.TODO(), &s3.GetBucketEncryptionInput{
+		Bucket: &bucketName,
+	})
+	if err == nil && len(encryptionOutput.ServerSideEncryptionConfiguration.Rules) > 0 {
+		rule := encryptionOutput.ServerSideEncryptionConfiguration.Rules[0]
+		if rule.ApplyServerSideEncryptionByDefault != nil {
+			props.SSEAlgorithm = string(rule.ApplyServerSideEncryptionByDefault.SSEAlgorithm)
+			if rule.ApplyServerSideEncryptionByDefault.KMSMasterKeyID != nil {
+				props.KMSKeyID = *rule.ApplyServerSideEncryptionByDefault.KMSMasterKeyID
+			}
 		}
 	}
-	require.NotEqual(t, -1, nameIdx, "name column not found in SHOW WAREHOUSES output")
-	require.NotEqual(t, -1, sizeIdx, "size column not found in SHOW WAREHOUSES output")
-	require.NotEqual(t, -1, commentIdx, "comment column not found in SHOW WAREHOUSES output")
 
-	require.True(t, rows.Next(), "No warehouse found matching %s", warehouseName)
+	return props
+}
 
-	// Create slice to hold all column values
-	values := make([]interface{}, len(cols))
-	valuePtrs := make([]interface{}, len(cols))
-	for i := range values {
-		valuePtrs[i] = &values[i]
-	}
+func listBucketObjects(t *testing.T, client *s3.Client, bucketName string) []string {
+	t.Helper()
 
-	err = rows.Scan(valuePtrs...)
-	require.NoError(t, err)
+	output, err := client.ListObjectsV2(context.TODO(), &s3.ListObjectsV2Input{
+		Bucket: &bucketName,
+	})
+	require.NoError(t, err, "Failed to list bucket objects")
 
-	// Extract the values we need
-	getName := func(v interface{}) string {
-		if v == nil {
-			return ""
+	var keys []string
+	for _, obj := range output.Contents {
+		if obj.Key != nil {
+			keys = append(keys, *obj.Key)
 		}
-		if s, ok := v.(string); ok {
-			return s
-		}
-		if b, ok := v.([]byte); ok {
-			return string(b)
-		}
-		return fmt.Sprintf("%v", v)
 	}
-
-	return WarehouseProps{
-		Name:    getName(values[nameIdx]),
-		Size:    getName(values[sizeIdx]),
-		Comment: getName(values[commentIdx]),
-	}
+	return keys
 }
 
 func mustEnv(t *testing.T, key string) string {
@@ -152,6 +97,6 @@ func mustEnv(t *testing.T, key string) string {
 	return v
 }
 
-func escapeLike(s string) string {
-	return strings.ReplaceAll(s, "'", "''")
+func stringPtr(s string) *string {
+	return &s
 }

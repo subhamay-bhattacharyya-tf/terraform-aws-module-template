@@ -10,7 +10,7 @@ variable "s3" {
     bucket_name   = string
     bucket_keys   = optional(list(string), [])
     versioning    = optional(bool, false)
-    sse_algorithm = optional(string, null)
+    sse_algorithm = optional(string, "AES256")
     kms_key_alias = optional(string, null)
   })
 }
