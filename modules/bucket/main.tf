@@ -52,7 +52,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
 }
 
 # Create folder placeholders (empty objects with trailing slash)
-resource "aws_s3_object" "folders" {
+resource "aws_s3_object" "bucket_keys" {
   for_each = toset(var.s3_config.bucket_keys)
 
   bucket = aws_s3_bucket.this.id

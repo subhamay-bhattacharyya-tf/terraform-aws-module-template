@@ -18,7 +18,7 @@ output "versioning_enabled" {
   value       = var.s3_config.versioning
 }
 
-output "folder_keys" {
-  description = "The folder keys created in the bucket."
-  value       = [for k, v in aws_s3_object.folders : v.key]
+output "bucket_keys" {
+  description = "The bucket keys created in the bucket."
+  value       = [for k, v in aws_s3_object.bucket_keys : v.key]
 }

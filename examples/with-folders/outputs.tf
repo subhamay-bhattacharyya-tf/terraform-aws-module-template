@@ -13,7 +13,7 @@ output "bucket_domain_name" {
   value       = module.s3_bucket.bucket_domain_name
 }
 
-output "folder_keys" {
+output "bucket_keys" {
   description = "The folder keys created in the bucket"
-  value       = module.s3_bucket.folder_keys
+  value       = module.s3_bucket.bucket_keys
 }

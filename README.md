@@ -167,7 +167,7 @@ terraform apply -var='region=us-east-1' -var='s3={"bucket_name":"my-bucket","buc
 | bucket_arn | The ARN of the bucket |
 | bucket_domain_name | The bucket domain name |
 | versioning_enabled | Whether versioning is enabled |
-| folder_keys | The folder keys created in the bucket |
+| bucket_keys | The bucket keys created in the bucket |
 
 ## Resources Created
 
