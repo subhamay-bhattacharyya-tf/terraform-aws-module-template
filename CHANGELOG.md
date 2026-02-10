@@ -4,6 +4,7 @@
 
 - [**breaking**] Add AWS S3 bucket module with encryption and versioning support
 - *(aws-s3-bucket)* Add public access block and bucket policy support
+- [**breaking**] Reorganize examples and add event notification module
 
 ### 🐛 Bug Fixes
 
@@ -26,6 +27,7 @@
 - Update CHANGELOG.md [skip ci]
 - Update repository references from terraform-aws-s3-bucket to terraform-aws-s3
 - Update module source references and standardize outputs
+- Update CHANGELOG.md [skip ci]
 
 ### 🎨 Styling
 
