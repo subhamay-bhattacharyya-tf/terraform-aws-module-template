@@ -130,7 +130,7 @@ jobs:
         id: s3-bucket-basic-test
         run: |
           set -o pipefail
-          go test -v -timeout 30m -run TestS3BucketBasic 2>&1 | tee test_output.txt
+          go test -v -timeout 30m -run TestS3BucketBasic ./s3_bucket_basic_test.go ./helpers_test.go 2>&1 | tee test_output.txt
           echo "## S3 Bucket Basic Test Results" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
           cat test_output.txt >> $GITHUB_STEP_SUMMARY
@@ -141,7 +141,7 @@ jobs:
         id: s3-bucket-versioning-test
         run: |
           set -o pipefail
-          go test -v -timeout 30m -run TestS3BucketVersioning 2>&1 | tee test_output.txt
+          go test -v -timeout 30m -run TestS3BucketVersioning ./s3_bucket_versioning_test.go ./helpers_test.go 2>&1 | tee test_output.txt
           echo "## S3 Bucket Versioning Test Results" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
           cat test_output.txt >> $GITHUB_STEP_SUMMARY
@@ -152,7 +152,7 @@ jobs:
         id: s3-bucket-sse-s3-test
         run: |
           set -o pipefail
-          go test -v -timeout 30m -run TestS3BucketSSES3 2>&1 | tee test_output.txt
+          go test -v -timeout 30m -run TestS3BucketSSES3 ./s3_bucket_sse_s3_test.go ./helpers_test.go 2>&1 | tee test_output.txt
           echo "## S3 Bucket SSE-S3 Test Results" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
           cat test_output.txt >> $GITHUB_STEP_SUMMARY
@@ -163,7 +163,7 @@ jobs:
         id: s3-bucket-sse-kms-test
         run: |
           set -o pipefail
-          go test -v -timeout 30m -run TestS3BucketSSEKMS 2>&1 | tee test_output.txt
+          go test -v -timeout 30m -run TestS3BucketSSEKMS ./s3_bucket_sse_kms_test.go ./helpers_test.go 2>&1 | tee test_output.txt
           echo "## S3 Bucket SSE-KMS Test Results" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
           cat test_output.txt >> $GITHUB_STEP_SUMMARY
@@ -174,7 +174,7 @@ jobs:
         id: s3-bucket-folders-test
         run: |
           set -o pipefail
-          go test -v -timeout 30m -run TestS3BucketWithFolders 2>&1 | tee test_output.txt
+          go test -v -timeout 30m -run TestS3BucketWithFolders ./s3_bucket_folders_test.go ./helpers_test.go 2>&1 | tee test_output.txt
           echo "## S3 Bucket With Folders Test Results" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
           cat test_output.txt >> $GITHUB_STEP_SUMMARY

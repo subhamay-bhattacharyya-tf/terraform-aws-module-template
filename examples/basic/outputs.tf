@@ -13,9 +13,9 @@ output "bucket_domain_name" {
   value       = module.s3_bucket.bucket_domain_name
 }
 
-output "versioning_enabled" {
+output "versioning_status" {
   description = "Whether versioning is enabled"
-  value       = module.s3_bucket.versioning_enabled
+  value       = module.s3_bucket.versioning_status
 }
 
 output "bucket_keys" {
