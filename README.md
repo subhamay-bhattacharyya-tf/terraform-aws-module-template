@@ -20,7 +20,7 @@ A Terraform module for creating and managing AWS S3 buckets with optional encryp
 
 ```hcl
 module "s3_bucket" {
-  source = "path/to/modules/aws-s3-bucket"
+  source = "github.com/subhamay-bhattacharyya-tf/terraform-aws-s3/modules/bucket?ref=main"
 
   s3_config = {
     bucket_name = "my-bucket"
@@ -32,7 +32,7 @@ module "s3_bucket" {
 
 ```hcl
 module "s3_bucket" {
-  source = "path/to/modules/aws-s3-bucket"
+  source = "github.com/subhamay-bhattacharyya-tf/terraform-aws-s3/modules/bucket?ref=main"
 
   s3_config = {
     bucket_name = "my-versioned-bucket"
@@ -45,7 +45,7 @@ module "s3_bucket" {
 
 ```hcl
 module "s3_bucket" {
-  source = "path/to/modules/aws-s3-bucket"
+  source = "github.com/subhamay-bhattacharyya-tf/terraform-aws-s3/modules/bucket?ref=main"
 
   s3_config = {
     bucket_name   = "my-encrypted-bucket"
@@ -58,7 +58,7 @@ module "s3_bucket" {
 
 ```hcl
 module "s3_bucket" {
-  source = "path/to/modules/aws-s3-bucket"
+  source = "github.com/subhamay-bhattacharyya-tf/terraform-aws-s3/modules/bucket?ref=main"
 
   s3_config = {
     bucket_name   = "my-kms-bucket"
@@ -72,7 +72,7 @@ module "s3_bucket" {
 
 ```hcl
 module "s3_bucket" {
-  source = "path/to/modules/aws-s3-bucket"
+  source = "github.com/subhamay-bhattacharyya-tf/terraform-aws-s3/modules/bucket?ref=main"
 
   s3_config = {
     bucket_name = "my-data-bucket"
@@ -85,7 +85,7 @@ module "s3_bucket" {
 
 ```hcl
 module "s3_bucket" {
-  source = "path/to/modules/aws-s3-bucket"
+  source = "github.com/subhamay-bhattacharyya-tf/terraform-aws-s3/modules/bucket?ref=main"
 
   s3_config = {
     bucket_name   = "my-policy-bucket"

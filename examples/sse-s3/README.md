@@ -2,6 +2,16 @@
 
 Creates an S3 bucket with server-side encryption using S3-managed keys (SSE-S3).
 
+## Source
+
+```hcl
+module "s3_bucket" {
+  source = "github.com/subhamay-bhattacharyya-tf/terraform-aws-s3/modules/bucket?ref=main"
+
+  s3_config = var.s3
+}
+```
+
 ## Usage
 
 ```bash

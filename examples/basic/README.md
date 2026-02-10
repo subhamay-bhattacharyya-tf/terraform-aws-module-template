@@ -2,6 +2,16 @@
 
 Creates an S3 bucket with optional KMS encryption, versioning, and folder structure.
 
+## Source
+
+```hcl
+module "s3_bucket" {
+  source = "github.com/subhamay-bhattacharyya-tf/terraform-aws-s3/modules/bucket?ref=main"
+
+  s3_config = var.s3
+}
+```
+
 ## Usage
 
 ```bash
