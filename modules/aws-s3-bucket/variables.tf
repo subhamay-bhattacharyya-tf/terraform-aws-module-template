@@ -19,7 +19,7 @@ variable "s3_config" {
   }
 
   validation {
-    condition     = var.s3_config.sse_algorithm == null || contains(["AES256", "aws:kms"], var.s3_config.sse_algorithm)
+    condition     = var.s3_config.sse_algorithm == null ? true : contains(["AES256", "aws:kms"], var.s3_config.sse_algorithm)
     error_message = "sse_algorithm must be 'AES256' (SSE-S3) or 'aws:kms' (SSE-KMS)."
   }
 
