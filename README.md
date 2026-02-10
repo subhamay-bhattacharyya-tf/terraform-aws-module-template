@@ -127,7 +127,7 @@ terraform apply -var='region=us-east-1' -var='s3={"bucket_name":"my-bucket","buc
 | [versioning](examples/versioning) | S3 bucket with versioning enabled |
 | [sse-s3](examples/sse-s3) | S3 bucket with SSE-S3 encryption |
 | [sse-kms](examples/sse-kms) | S3 bucket with SSE-KMS encryption |
-| [with-folders](examples/with-folders) | S3 bucket with folder structure |
+| [folders](examples/folders) | S3 bucket with folder structure |
 
 ## Requirements
 

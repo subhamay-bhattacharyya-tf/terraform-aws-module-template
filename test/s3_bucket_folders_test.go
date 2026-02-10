@@ -20,7 +20,7 @@ func TestS3BucketWithFolders(t *testing.T) {
 	unique := strings.ToLower(random.UniqueId())
 	bucketName := fmt.Sprintf("tt-s3-folders-%s", unique)
 
-	tfDir := "../examples/with-folders"
+	tfDir := "../examples/folders"
 
 	s3Config := map[string]interface{}{
 		"bucket_name": bucketName,
