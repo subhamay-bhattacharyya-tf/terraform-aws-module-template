@@ -6,6 +6,7 @@ variable "s3_config" {
     versioning    = optional(bool, false)
     sse_algorithm = optional(string, null) # "AES256" for SSE-S3, "aws:kms" for SSE-KMS
     kms_key_alias = optional(string, null)
+    bucket_policy = optional(string, null)
   })
 
   validation {
