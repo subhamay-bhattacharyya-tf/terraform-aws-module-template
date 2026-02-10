@@ -3,7 +3,7 @@
 # This example creates an S3 bucket with server-side encryption using S3-managed keys (SSE-S3).
 
 module "s3_bucket" {
-  source = "../../modules/aws-s3-bucket"
+  source = "../../modules/bucket"
 
   s3_config = var.s3
 }

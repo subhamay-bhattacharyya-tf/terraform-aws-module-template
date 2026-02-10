@@ -4,7 +4,7 @@
 # to create an S3 bucket with optional KMS encryption, versioning, and folders.
 
 module "s3_bucket" {
-  source = "../../modules/aws-s3-bucket"
+  source = "../../modules/bucket"
 
   s3_config = var.s3
 }
