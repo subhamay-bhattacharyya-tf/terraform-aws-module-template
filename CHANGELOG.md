@@ -7,9 +7,12 @@
 ### 🐛 Bug Fixes
 
 - *(aws-s3-bucket)* Improve CI workflow and validation logic
+- *(aws-s3-bucket)* Handle versioning state transitions correctly
+- *(aws-s3-bucket)* Simplify versioning status logic
 
 ### 📚 Documentation
 
+- Update CHANGELOG.md [skip ci]
 - Update CHANGELOG.md [skip ci]
 
 ### 🎨 Styling
