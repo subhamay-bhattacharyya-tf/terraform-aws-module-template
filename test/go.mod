@@ -1,4 +1,4 @@
-module github.com/subhamay-bhattacharyya-tf/terraform-aws-s3-bucket/test
+module github.com/subhamay-bhattacharyya-tf/terraform-aws-s3/test
 
 go 1.21
 
