@@ -3,6 +3,7 @@
 ### 🚀 Features
 
 - [**breaking**] Add AWS S3 bucket module with encryption and versioning support
+- *(aws-s3-bucket)* Add public access block and bucket policy support
 
 ### 🐛 Bug Fixes
 
@@ -12,6 +13,7 @@
 
 ### 📚 Documentation
 
+- Update CHANGELOG.md [skip ci]
 - Update CHANGELOG.md [skip ci]
 - Update CHANGELOG.md [skip ci]
 
