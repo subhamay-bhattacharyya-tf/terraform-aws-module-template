@@ -1,3 +1,8 @@
+# -- modules/bucket/variables.tf (Child Module)
+# ============================================================================
+# S3 Bucket Module - Variables
+# ============================================================================
+
 variable "s3_config" {
   description = "Configuration object for S3 bucket"
   type = object({

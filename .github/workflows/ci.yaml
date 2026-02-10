@@ -65,11 +65,14 @@ jobs:
     strategy:
       matrix:
         example:
-          - examples/basic
-          - examples/versioning
-          - examples/sse-s3
-          - examples/sse-kms
-          - examples/folders
+          - examples/bucket/basic
+          - examples/bucket/versioning
+          - examples/bucket/sse-s3
+          - examples/bucket/sse-kms
+          - examples/bucket/folders
+          - examples/event-notification/sqs
+          - examples/event-notification/sns
+          - examples/event-notification/lambda
     steps:
       - name: Checkout
         uses: actions/checkout@v6

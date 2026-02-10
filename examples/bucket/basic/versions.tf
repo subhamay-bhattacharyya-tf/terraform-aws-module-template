@@ -1,6 +1,6 @@
-# -- modules/bucket/versions.tf (Child Module)
+# -- examples/bucket/basic/versions.tf (Example)
 # ============================================================================
-# S3 Bucket Module - Version Requirements
+# Example: Basic S3 Bucket - Version Requirements
 # ============================================================================
 
 terraform {
@@ -12,4 +12,8 @@ terraform {
       version = ">= 5.0.0"
     }
   }
+}
+
+provider "aws" {
+  region = var.region
 }

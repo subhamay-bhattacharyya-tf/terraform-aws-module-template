@@ -20,7 +20,7 @@ func TestS3BucketSSES3(t *testing.T) {
 	unique := strings.ToLower(random.UniqueId())
 	bucketName := fmt.Sprintf("tt-s3-sse-s3-%s", unique)
 
-	tfDir := "../examples/sse-s3"
+	tfDir := "../examples/bucket/sse-s3"
 
 	s3Config := map[string]interface{}{
 		"bucket_name":   bucketName,

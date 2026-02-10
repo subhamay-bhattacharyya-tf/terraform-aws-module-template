@@ -1,5 +1,8 @@
+# -- modules/bucket/main.tf (Child Module)
+# ============================================================================
 # AWS S3 Bucket Resource
 # Creates and manages an S3 bucket with optional encryption, versioning, and folder structure
+# ============================================================================
 
 # Look up existing KMS key by alias if provided
 data "aws_kms_alias" "this" {

@@ -20,7 +20,7 @@ func TestS3BucketVersioning(t *testing.T) {
 	unique := strings.ToLower(random.UniqueId())
 	bucketName := fmt.Sprintf("tt-s3-versioning-%s", unique)
 
-	tfDir := "../examples/versioning"
+	tfDir := "../examples/bucket/versioning"
 
 	s3Config := map[string]interface{}{
 		"bucket_name": bucketName,

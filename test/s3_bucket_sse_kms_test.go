@@ -22,7 +22,7 @@ func TestS3BucketSSEKMS(t *testing.T) {
 	unique := strings.ToLower(random.UniqueId())
 	bucketName := fmt.Sprintf("tt-s3-sse-kms-%s", unique)
 
-	tfDir := "../examples/sse-kms"
+	tfDir := "../examples/bucket/sse-kms"
 
 	s3Config := map[string]interface{}{
 		"bucket_name":   bucketName,
