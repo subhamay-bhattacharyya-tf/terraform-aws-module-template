@@ -2,50 +2,44 @@
 
 ### 🚀 Features
 
-- *(snowflake-warehouse)* Support multiple warehouses via map configuration
-- Clean up legacy configurations and update CI workflows
-- [**breaking**] Add blank line for improved readability in main.tf
-- Update CI workflow to use snowflake-warehouse module and clean up main.tf
+- [**breaking**] Add AWS S3 bucket module with encryption and versioning support
+- *(aws-s3-bucket)* Add public access block and bucket policy support
+- [**breaking**] Reorganize examples and add event notification module
 
 ### 🐛 Bug Fixes
 
-- *(snowflake)* Update JWT authenticator to SNOWFLAKE_JWT and remove extra blank line
-- *(release)* Force patch release
-- *(release)* Trigger semantic release
+- *(aws-s3-bucket)* Improve CI workflow and validation logic
+- *(aws-s3-bucket)* Handle versioning state transitions correctly
+- *(aws-s3-bucket)* Simplify versioning status logic
+- *(aws-s3-bucket)* Add dependency ordering for bucket policy
 
 ### 🚜 Refactor
 
-- Restructure project to modular Terraform architecture
-- *(test)* Migrate to gosnowflake config builder for JWT authentication
-- *(test)* Improve warehouse property fetching and remove extra blank line
+- *(aws-s3-bucket)* Rename module and standardize output naming
+- Rename folders example from with-folders to folders
 
 ### 📚 Documentation
 
-- *(readme)* Update badges to reflect Snowflake focus
 - Update CHANGELOG.md [skip ci]
 - Update CHANGELOG.md [skip ci]
 - Update CHANGELOG.md [skip ci]
+- *(readme)* Update documentation with bucket policy and resources
 - Update CHANGELOG.md [skip ci]
-- Update CHANGELOG.md [skip ci]
-- Update CHANGELOG.md [skip ci]
-- Update CHANGELOG.md [skip ci]
-- Update CHANGELOG.md [skip ci]
-- Update CHANGELOG.md [skip ci]
+- Update repository references from terraform-aws-s3-bucket to terraform-aws-s3
+- Update module source references and standardize outputs
 - Update CHANGELOG.md [skip ci]
 
 ### 🎨 Styling
 
-- *(snowflake-warehouse)* Add periods to output descriptions
-- *(snowflake-warehouse)* Add blank line after module header comment
+- *(aws-s3-bucket)* Align variable definitions for consistency
+- *(bucket)* Remove extra blank line in main.tf
+
+### 🧪 Testing
+
+- Refactor test suite and standardize output naming
 
 ### ⚙️ Miscellaneous Tasks
 
-- *(github-actions)* Add permissions and token for changelog generation
-- *(release)* Version 1.0.0 [skip ci]
-- *(testing)* Migrate from Jest to Terratest and restructure examples
-- *(github-actions)* Migrate authentication to key-pair and remove property tests
-- *(github-actions)* Enhance Terratest output visibility and remove conditional gate
-- *(test)* Update Go dependencies and add go.sum
-- *(testing)* Migrate to key-pair authentication and add go mod tidy
-- *(github-actions)* Add pipefail option to Terratest commands and update Snowflake provider source
-- *(release)* Version 1.0.1 [skip ci]
+- Fix AWS credentials and improve git workflow
+- Update module path references from aws-s3-bucket to bucket
+- Update module source references from aws-s3-bucket to bucket
