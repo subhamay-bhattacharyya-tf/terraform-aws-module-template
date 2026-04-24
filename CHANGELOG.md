@@ -46,3 +46,4 @@
 - Update module source references from aws-s3-bucket to bucket
 - *(release)* Version 1.0.0 [skip ci]
 - Update CI workflow to include examples and test directories; refine security group tests
+- Remove unused semantic-release plugins from configuration
